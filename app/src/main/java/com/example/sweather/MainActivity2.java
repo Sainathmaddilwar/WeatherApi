@@ -17,11 +17,25 @@ public class MainActivity2 extends AppCompatActivity {
         final TextView resultweather = (TextView) findViewById(R.id.textView2);
         final ImageView image = (ImageView) findViewById(R.id.imageView);
         final TextView resulttemprature = (TextView) findViewById(R.id.textView3);
+        TextView city=(TextView) findViewById(R.id.textView13);
+        TextView temp=(TextView)findViewById(R.id.textView5);
+        TextView Airpressure=(TextView)findViewById(R.id.textView6);
+        TextView Humidity=(TextView)findViewById(R.id.textView9);
+        TextView Visibility=(TextView)findViewById(R.id.textView10);
         String s=getIntent().getStringExtra("weather");
         String i=getIntent().getStringExtra("tt");
+        String c=getIntent().getStringExtra("city");
+        String h=getIntent().getStringExtra("humidity");
+        String a=getIntent().getStringExtra("Pressure");
+        String v=getIntent().getStringExtra("speed");
 
         resulttemprature.setText(s);
         resultweather.setText(i+"° C");
+        temp.setText(i+"° C");
+        city.setText(c);
+        Airpressure.setText(a+"hPa");
+        Humidity.setText(h+"%");
+        Visibility.setText(v+"Km");
         switch (s){
 
             case "Clouds":

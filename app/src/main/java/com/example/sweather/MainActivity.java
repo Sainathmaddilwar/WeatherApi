@@ -13,7 +13,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,9 +25,9 @@ public class MainActivity extends AppCompatActivity {
     EditText city;
     //Context mcontext=getApplicationContext();
     //http://api.openweathermap.org/data/2.5/weather?q=Paris&appid=5f56d525d1619d0a2cd2eac4ce55588e
-
+//577b7d3e60200e91c523139eecab4f8b
     String baseURL ="https://api.openweathermap.org/data/2.5/weather?q=";
-    String API ="&appid=577b7d3e60200e91c523139eecab4f8b";
+    String API ="&appid=5f56d525d1619d0a2cd2eac4ce55588e";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +58,26 @@ public class MainActivity extends AppCompatActivity {
 
                                     JSONArray ar = new JSONArray(info);
                                     String t = jsonObject.getString("main");
+                                    String w=jsonObject.getString("wind");
+                                    JSONObject wo=new JSONObject(w);
                                     JSONObject to = new JSONObject(t);
                                     int temp = to.getInt("temp");
+                                    int speed=wo.getInt("speed");
+                                    int pressure=to.getInt("pressure");
+                                    int humidity=to.getInt("humidity");
+                                   // int visiblity=to.getInt("visibility");
+                                    //String v=Integer.toString(visiblity);
+                                    String h=Integer.toString(humidity);
+                                    String p=Integer.toString(pressure);
+                                    String si=Integer.toString(speed);
                                     temp = temp - 273;
                                     String s=Integer.toString(temp);
                                     globe.setTemp(s);
+                                    globe.setAirpressure(p);
+                                    globe.setHumidity(h);
+                                    final String c=city.getText().toString();
+                                    globe.setCity(c);
+                                  globe.setVisiblity(si);
 
                                     for (int i = 0; i < ar.length(); i++) {
                                         JSONObject parObj = ar.getJSONObject(i);
@@ -76,6 +90,10 @@ public class MainActivity extends AppCompatActivity {
                                     Intent intent=new Intent(MainActivity.this,MainActivity2.class);
                                     intent.putExtra("tt",globe.getTemp());
                                     intent.putExtra("weather",globe.getWeather());
+                                    intent.putExtra("city",globe.getCity());
+                                    intent.putExtra("Pressure",globe.getAirpressure());
+                                    intent.putExtra("humidity",globe.getHumidity());
+                                    intent.putExtra("speed",globe.getVisiblity());
                                     startActivity(intent);
                                 }
                                 catch(JSONException e){
